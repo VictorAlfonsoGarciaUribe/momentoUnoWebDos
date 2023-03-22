@@ -77,13 +77,42 @@
                 </label>
               </div> <br>
         
-            <button type="button" class="btn btn-primary" id="btnadd">Guardar</button>
+            <button type="button"  class="btn btn-primary" id="btnadd">Guardar</button>
             <button type="button" class="btn btn-secondary" id="btnsearch">Buscar</button>
             <button type="button" class="btn btn-success" id="btnupdate">Actualizar</button>
             <button type="button" class="btn btn-danger" id="btndelete">Limpiar</button>
             
         </form>
     </div>
+
+    <script>
+ //Definir el arreglo de objetos para los productos
+ let libros = [
+];
+ 
+//botones
+let btnadd    = document.getElementById('btnadd');     
+let btnsearch = document.getElementById('btnsearch');
+let btnupdate = document.getElementById('btnupdate');
+let btndelete = document.getElementById('btndelete');
+let btnlist   = document.getElementById('btnlist');
+
+
+//definir las variables que van a apuntar a los elementos en html
+let reference= document.getElementById('reference').value;
+let description=document.getElementById('description').value;
+let genero= document.getElementById('genero').value;
+let disponible=document.getElementById('disponible').value;
+let nodisponible       =document.getElementById('nodisponible').value;
+
+//Mensajes span
+let mreference = document.getElementById('mreference');
+let mdescription = document.getElementById('mdescription');
+
+
+
+
+    </script>
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js" integrity="sha384-w76AqPfDkMBDXo30jS1Sgez6pr3x5MlQ1ZAGC+nuZB+EYdgRZgiwxhTBTkF7CXvN" crossorigin="anonymous"></script>
 
