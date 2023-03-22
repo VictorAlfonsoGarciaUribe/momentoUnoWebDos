@@ -64,14 +64,13 @@
                 <span id="munitprice" style="color:red;font-weight: bold;"></span>
             </div>
             <label for="stock" class="form-label">Estado</label>
-            <div class="form-check">
-                <input class="form-check-input" type="radio" name="radios" id="disponible">
+            <div class="form-check" container>
+                <input class="form-check-input" type="radio" value="disponible" name="disponible" id="disponible">
                 <label class="form-check-label" for="flexRadioDefault1">
                   Disponible
                 </label> <br>
-              </div>
-              <div class="form-check">
-                <input class="form-check-input" type="radio" name="radios" id="nodisponible" checked>
+              
+                <input class="form-check-input" type="radio" value="nodisponible"  name="disponible" id="nodisponible">
                 <label class="form-check-label" for="flexRadioDefault2">
                   No Disponible
                 </label>
@@ -83,19 +82,17 @@
             <button type="button" class="btn btn-danger" id="btndelete">Limpiar</button>
             
 
-
-
         </form>
     </div>
 
     <script>
  //definir las variables que van a apuntar a los elementos en html
 
- let reference = document.getElementById('reference');
-    let description = document.getElementById('description');
-    let genero = document.getElementById('genero');
-    let disponible = document.getElementById('disponible');
-    let nodisponible = document.getElementById('nodisponible');
+let reference = document.getElementById('reference');
+let description = document.getElementById('description');
+let genero = document.getElementById('genero');
+let disponible = document.getElementById('disponible');
+let nodisponible = document.getElementById('nodisponible');
 
  //Mensajes span
      let mreference = document.getElementById('mreference');
@@ -110,8 +107,59 @@
      let btnlist   = document.getElementById('btnlist');
 
 //Definir el arreglo de objetos para los productos
-     let libros = [
-     ];
+     const libros = [ {
+        reference: "123",
+        description:"Libro infantil",
+        genero: "Ciencias",
+        disponible: "disponible"
+
+     },{
+        reference: "098",
+        description:"Libro Mayores",
+        genero: "Sociales",
+        disponible: "nodisponible"
+
+     }];
+
+
+//Boton buscar
+btnsearch.addEventListener('click',()=>{
+
+if(reference.value != ""){
+   
+  //Buscar la referencia en el arreglo de objetos productos
+  let mprodFind = libros.find(prod => prod.reference == reference.value);
+   
+  //Si encuentra la referencia 
+  if(mprodFind != undefined){
+    //Asignar el contenido del objeto, en sus campos a cada input 
+    alert("registro encontrado");  
+    
+    description.value=mprodFind.description
+    genero.value=mprodFind.genero
+  
+    //Asignar valor a check box   
+    if(mprodFind.disponible=="disponible"){
+        alert("disponible"); 
+        disponible.checked = true;
+    }
+    else nodisponible.checked = true;
+   
+       //Desaparece mensaje de notificación
+       message.classList.add('d-none');   
+
+    //Los datos quedan como un objeto que para seguimiento vamos a ver en 
+    console.log(mprodFind);
+
+  }  
+} 
+//Si no encuentra la referencia en el arreglo de productos
+else {
+    alert("Digite una referencia"); 
+
+}
+
+});//Fin boton buscar
 
      
 
