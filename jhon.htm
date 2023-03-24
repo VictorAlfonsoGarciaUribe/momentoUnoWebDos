@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<!--hola victoooooooooooooooooooooooor-->
+<!--Hoolaaa Alejo-->
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Momento Uno WEB</title>
+    <link rel="stylesheet" href="style.css">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-GLhlTQ8iRABdZLl6O3oVMWSktQOp6b7In1Zl3/Jr59b6EGGoI1aFkw7cmDA6j6gD" crossorigin="anonymous">
+
+</head>
+<body>
+
+    <!-- Button trigger modal -->
+<button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal">
+    Launch demo modal
+  </button>
+  <!-- Modal -->
+  <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+          ...
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+          <button type="button" class="btn btn-primary">Save changes</button>
+        </div>
+      </div>
+    </div>
+  </div>
+<!------------------------------------------------------------->
+    <div class="container">
+        <h1>Sistema de Biblioteca</h1>
+        <h2>Actualización de Libros</h2>
+        <div class="alert d-none" role="alert" id="message">
+        
+        </div>
+        <form name ="miform">
+            <div class="mb-3">
+                <label for="reference" class="form-label">ID</label>
+                <input type="text" class="form-control" id="reference" aria-describedby="emailHelp" placeholder="Ingrese ID del Libro">
+                <span id="mreference" style="color:red;font-weight: bold;"></span>
+            </div>
+            <div class="mb-3">
+                <label for="description" class="form-label">Nombre</label>
+                <input type="text" class="form-control" id="description" placeholder="Ingrese Nombre del Libro">
+                <span id="mdescription" style="color:red;font-weight: bold;"></span>
+              </div>
+            <div class="mb-3">
+                <label for="description" class="form-label">Género</label>
+                <select id="genero" class="form-select" aria-label="Default select example">
+                    <option selected id="genero"value="Seleccione Genero">Seleccione Género</option>
+                    <option value="Ciencias">Ciencias</option>
+                    <option value="Sociales">Sociales</option>
+                    <option value="Matemáticas">Matemáticas</option>
+                </select>
+                <span id="munitprice" style="color:red;font-weight: bold;"></span>
+            </div>
+            <label for="stock" class="form-label">Estado</label>
+            <div class="form-check" container>
+              <input class="form-check-input" type="radio" value="disponible" name="disponible" id="disponible" checked>
+              <label class="form-check-label" for="flexRadioDefault1">
+                Disponible
+              </label> <br>
+            
+              <input class="form-check-input" type="radio" value="nodisponible"  name="disponible" id="nodisponible">
+              <label class="form-check-label" for="flexRadioDefault2">
+                No Disponible
+              </label>
+            </div>
+             <br>
+        
+            <button type="button" class="btn btn-primary" id="btnadd">Guardar</button>
+            <button type="button" class="btn btn-secondary" id="btnsearch">Buscar</button>
+            <button type="button" class="btn btn-success" id="btnupdate">Actualizar</button>
+            <button type="button" class="btn btn-danger" id="btndelete">Limpiar</button>
+            
+
+
+
+        </form>
+    </div>
+
+    <script>
+ //definir las variables que van a apuntar a los elementos en html
+
+        let reference   = document.getElementById('reference');
+        let description = document.getElementById('description');
+        let genero      = document.getElementById('genero');
+        let disponible  =document.getElementById('disponible').checked;
+        let nodisponible=document.getElementById('nodisponible').checked;
+ //Mensajes span
+        let mreference   = document.getElementById('mreference');
+        let mdescription = document.getElementById('mdescription');
+//botones
+        let btnadd    = document.getElementById('btnadd');     
+        let btnsearch = document.getElementById('btnsearch');
+        let btnupdate = document.getElementById('btnupdate');
+        let btndelete = document.getElementById('btndelete');
+//Definir el arreglo de objetos para los productos
+        let productos = [];
+        
+        btnadd.addEventListener('click',()=>{
+            if(reference.value != "" &&  description.value != "" && genero.value !=""){
+              if (genero.value=="Seleccione Genero" ){
+                  alert("seleccione-genero")
+                }else{
+                //Guardar el producto en el arreglo de objetos productos
+                //Bucsra la referencia del producto }
+                let buscarproducto = productos.find(prod => prod.reference == reference.value)
+                
+                //Pregunta de que no encontro la referencia 
+                if(buscarproducto == undefined) {
+                //Generar el objeto con cada uno de los datos del producto contenidos en cada campo 
+                let nvoproducto = {reference:reference.value, description:description.value, genero:genero.value }
+                productos.push(nvoproducto);
+                if(document.getElementById('disponible').checked){
+                  nvoproducto.disponible = "disponible"
+
+                  } 
+                  //Si no encuentra la referencia en el arreglo de productos
+                  else {
+                    nvoproducto.disponible="nodisponible"
+
+                  }
+                console.log(productos) 
+                //emitir mensaje de producto guardado 
+                /*   message.classList.remove("alert-danger");
+                message.classList.add("alert-success");*/
+                message.textContent="El Libro fue guardado con exito"
+                
+                //Retardo de 3 segundos en el mensaje y hacer accion
+                    setTimeout (()=>{
+                        message.classList.remove('alert-success');
+                        message.classList.add('d-none')
+                    }
+                    ,3000)
+            }
+            //Ya existe la referencia dentro del arreglo 
+            else{
+                message.classList.remove("d-none");
+                message.classList.add("success-alert");
+                message.textContent="Este ejemplar ya existe"
+            }
+        }
+        }else{
+            //Mensaje de los campos vacios 
+                if(reference.value == ""){
+                    mreference.textContent ="El id es obligatorio"
+                } if (description.value == ""){
+                    mdescription.textContent ="El nombre es obligatoria"
+                }
+                else{
+                message.classList.remove('d-none');
+                message.classList.add("alert-danger");
+                message.textContent="Debe ingresar todos los datos..."
+            }
+        }
+        })
+        console.log (productos);
+    </script>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js" integrity="sha384-w76AqPfDkMBDXo30jS1Sgez6pr3x5MlQ1ZAGC+nuZB+EYdgRZgiwxhTBTkF7CXvN" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js" integrity="sha384-w76AqPfDkMBDXo30jS1Sgez6pr3x5MlQ1ZAGC+nuZB+EYdgRZgiwxhTBTkF7CXvN" crossorigin="anonymous"></script>
+
+</body>
+</html>
